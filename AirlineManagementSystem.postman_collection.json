@@ -1,0 +1,429 @@
+{
+	"info": {
+		"_postman_id": "3fa1babd-4b92-4fd4-bbc7-7be597352e19",
+		"name": "Airline Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26981209"
+	},
+	"item": [
+		{
+			"name": "Airplane API",
+			"item": [
+				{
+					"name": "/airplanes/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/airplanes/",
+						"description": "**List all airplanes with a \"status\"=true**"
+					},
+					"response": []
+				},
+				{
+					"name": "/airplanes/{id}/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/airplanes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"airplanes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "airplane_id"
+								}
+							]
+						},
+						"description": "**Get details of a specific airplane even \"status\"=false**\n\n- If an id that does not exist in the database is entered, it will give an error HTTP_404_NOT_FOUND"
+					},
+					"response": []
+				},
+				{
+					"name": "/airplanes/{id}/flights/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/airplanes/:id/flights",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"airplanes",
+								":id",
+								"flights"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "airplane_id"
+								}
+							]
+						},
+						"description": "**Get the flights of a spesific airplane even \"airplane_status\"=false**\n\n- If an id that does not exist in the database is entered, it will give an error HTTP_404_NOT_FOUND"
+					},
+					"response": []
+				},
+				{
+					"name": "/airplanes/",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tail_number\": \"test_tailnumber\",\r\n    \"model\": \"test_model\",\r\n    \"capacity\": 5,\r\n    \"production_year\": 2005\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/airplanes/",
+						"description": "**Add a new airplane**\n\n- If the data fields required by the airplane object's attributes are not entered, it will give an error HTTP_400_BAD_REQUEST\n- If the \"status\" field is not specified it will automatically be true and return HTTP_201_CREATED"
+					},
+					"response": []
+				},
+				{
+					"name": "/airplanes/{id}/",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tail_number\": \"TC-NRT\",\r\n    \"model\": \"Airbus A320\",\r\n    \"capacity\": 50,\r\n    \"production_year\": 2021,\r\n    \"status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/airplanes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"airplanes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "airplane_id"
+								}
+							]
+						},
+						"description": "**Update a specific airplane**\n\n- If an id that does not exist in the database is entered, it will give an error HTTP_404_NOT_FOUND\n    \n- If the data fields required by the airplane object's attributes are not entered, it will give an error HTTP_400_BAD_REQUEST\n    \n- Partial data modification possible\n    \n- If the \"status\" field is changed, all associated reservation statuses will also change"
+					},
+					"response": []
+				},
+				{
+					"name": "/airplanes/{id}/",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/airplanes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"airplanes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "7",
+									"description": "airplane_id"
+								}
+							]
+						},
+						"description": "**Delete a spesific airplane with associated flights and reservations**\n\n- If an id that does not exist in the database is entered, it will give an error HTTP_404_NOT_FOUND\n    \n- It also deletes all associated flights and return HTTP_204_NO_CONTENT"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Flight API",
+			"item": [
+				{
+					"name": "/flights/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/flights/",
+						"description": "**List of flights associated with airplane with \"status\"=true**"
+					},
+					"response": []
+				},
+				{
+					"name": "/flights/{id}/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/flights/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"flights",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2",
+									"description": "flight_id"
+								}
+							]
+						},
+						"description": "**Get details of a specific flight even associated airplane with \"status\"=false**\n\n- If an id that does not exist in the database is entered, it will give an error HTTP_404_NOT_FOUND"
+					},
+					"response": []
+				},
+				{
+					"name": "/flights/{id}/reservations/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/flights/:id/reservations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"flights",
+								":id",
+								"reservations"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2",
+									"description": "flight_id"
+								}
+							]
+						},
+						"description": "**Get reservations made for a specific flight even associated airplane with \"status\"=false**\n\n- If an id that does not exist in the database is entered, it will give an error HTTP_404_NOT_FOUND"
+					},
+					"response": []
+				},
+				{
+					"name": "/flights/",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"flight_number\": \"test flight\",\r\n        \"departure\": \"a Airport\",\r\n        \"destination\": \"b Airport\",\r\n        \"departure_time\": \"2024-12-18 00:00:00\",\r\n        \"arrival_time\": \"2024-12-18 00:00:00\",\r\n        \"airplane\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/flights/",
+						"description": "**Add a new flight**\n\n- If the data fields required by the flight object's attributes are not entered, it will give an error HTTP_400_BAD_REQUEST\n    \n- If a flight is added to a airplane where \"status\"=false, HTTP_403_FORBIDDEN is returned"
+					},
+					"response": []
+				},
+				{
+					"name": "/flights/{id}/",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"flight_number\": \"flight\",\r\n        \"departure\": \"x Airport\",\r\n        \"destination\": \"y Airport\",\r\n        \"departure_time\": \"2024-12-18 00:00:00\",\r\n        \"arrival_time\": \"2024-12-19 00:00:00\",\r\n        \"airplane\": 1\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/flights/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"flights",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2",
+									"description": "flight_id"
+								}
+							]
+						},
+						"description": "**Update a specific flight**\n\n- If the data fields required by the flight object's attributes are not entered, it will give an error HTTP_400_BAD_REQUEST\n    \n- If an id that does not exist in the database is entered, it will give an error HTTP_404_NOT_FOUND\n    \n- Partial data modification possible"
+					},
+					"response": []
+				},
+				{
+					"name": "/flights/{id}/",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/flights/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"flights",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "flight_id"
+								}
+							]
+						},
+						"description": "**Delete a specific flight with associated reservations and return HTTP_204_NO_CONTENT**\n\n- If an id that does not exist in the database is entered, it will give an error HTTP_404_NOT_FOUND"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reservation API",
+			"item": [
+				{
+					"name": "/reservations/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/reservations/",
+						"description": "**List of only reservations whose \"airplane_status\" = True and \"reservation_status\"= True**"
+					},
+					"response": []
+				},
+				{
+					"name": "/reservations/{id}/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reservations/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6",
+									"description": "reservation_id"
+								}
+							]
+						},
+						"description": "**Get details of a specific reservation even if \"reservation_status\"=false**\n\n- If an id that does not exist in the database is entered, it will give an error HTTP_404_NOT_FOUND"
+					},
+					"response": []
+				},
+				{
+					"name": "/reservations/",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"passenger_name\": \"test1\",\r\n    \"passenger_email\": \"tse1t@gmail.com\",\r\n    \"flight\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/reservations/",
+						"description": "**Add a new reservation**\n\n- If the data fields required by the reservation object's attributes are not entered, it will give an error HTTP_400_BAD_REQUEST\n    \n- If the number of reservations for the entered flight with \"status\"=true is equal to the airplane capacity, the reservation cannot be made and return HTTP_406_NOT_ACCEPTABLE\n    \n- If the airplane to which the reservation is associated has \"status\"=false, it returns HTTP_403_FORBIDDEN\n    \n- Optionally, a \"status\" can be entered.\n    \n- Automatically generates a 5-digit alphanumeric code and return HTTP_201_CREATED"
+					},
+					"response": []
+				},
+				{
+					"name": "/reservations/{id}/",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"passenger_name\": \"12\",\r\n    \"passenger_email\": \"12@gmail.com\",\r\n    \"status\": true,\r\n    \"flight\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/reservations/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "12",
+									"description": "reservation_id"
+								}
+							]
+						},
+						"description": "**Update a specific reservation**\n\n- If an id that does not exist in the database is entered, it will give an error HTTP_404_NOT_FOUND\n    \n- If the data fields required by the reservation object's attributes are not entered, it will give an error HTTP_400_BAD_REQUEST\n    \n- When the flight is changed, if the status of the new airplane is false, a HTTP_403_FORBIDDEN is returned\n    \n- If the capacity full HTTP_406_NOT_ACCEPTABLE returns\n    \n- Partial data modification possible"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000"
+		}
+	]
+}
